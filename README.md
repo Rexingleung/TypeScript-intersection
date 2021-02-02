@@ -124,3 +124,4 @@ namespace TYPE2 {
   */
 }
 ```
+详情见 [TypeScript实战-TypeScript 获取两个type的交集及其对应的类型](https://zhuanlan.zhihu.com/p/348712825)
