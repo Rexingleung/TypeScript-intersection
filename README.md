@@ -32,15 +32,21 @@ namespace TYPE1 {
     age: number;
     addr: string;
   }
-  
   type FilterKey<T, U> = T extends U ? T : never; // 找出交集
   type TK<T> = keyof T; // 获取key值
   type Filter<T, K extends keyof T> = {
     [P in K]: T[P];
   };
-  
   type TK12 = FilterKey<TK<T01>, TK<T02>>;  // 获取对应T01和T02 key的交集
-  type T03 = Filter<T01, TK12>; // 因为交集的key的类型是相同的, 所以随便去一个即可
+
+  type TGet12 = Filter<T01, TK12>; // 因为交集的key的类型是相同的, 所以随便去一个即可
+  /*
+    TGet12结果如下
+    type TGet12 = {
+      id: string;
+      name: string;
+    }
+  */
 }
 ```
 
@@ -98,7 +104,23 @@ namespace TYPE2 {
   
   type TK12 = FilterKey<TK<T01>, TK<T02>>; // 获取对应T01和T02 key的交集
   type TK34 = FilterKey<TK<T03>, TK<T04>>; // 获取对应T03和T04 key的交集
-  type TGet12 = Filter<T01, T02, TK12, TK12>; // 传进两个key和两个type进行对比 
-  type TGet34 = Filter<T03, T04, TK34, TK34>; // 传进两个key和两个type进行对比 
+
+  type TGet12 = Filter<T01, T02, TK12, TK12>; // 传进两个key和两个type进行对比, 并获取结果
+  /*
+    TGet12结果如下
+    type TGet12 = {
+      id: string;
+      name: string | number;
+    }
+  */
+
+  type TGet34 = Filter<T03, T04, TK34, TK34>; // 传进两个key和两个type进行对比, 并获取结果
+  /*
+    TGet34结果如下
+    type TGet34 = {
+      id?: string;
+      name: string | number;
+    }
+  */
 }
 ```
